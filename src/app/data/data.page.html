@@ -1,0 +1,264 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>PURCHASE DATA</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <br />
+  <ion-card>
+    <ion-card-header class="ion-text-center">
+      <ion-card-title> Fill the form below to purchase data </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-segment
+        class="data"
+        color="primary"
+        [(ngModel)]="type"
+        (ionChange)="segmentChanged($event)"
+        mode="md"
+        value="mtn"
+      >
+        <ion-segment-button value="mtn" checked="true" class="mtn">
+          <!-- <ion-img class="logoimg" src="assets/images/mtn.png"></ion-img> -->
+        </ion-segment-button>
+        <ion-segment-button value="airtel" class="airtel">
+          <!-- <ion-img class="logoimg" src="assets/images/airtel2.png"></ion-img> -->
+          <!-- <ion-label>Airtel</ion-label> -->
+        </ion-segment-button>
+        <ion-segment-button value="glo" class="glo">
+          <!-- <ion-img class="logoimg" src="assets/images/glo.png"></ion-img> -->
+          <!-- <ion-label>Airtel</ion-label> -->
+        </ion-segment-button>
+        <ion-segment-button value="9mobile" class="mobile">
+          <!-- <ion-img class="logoimg" src="assets/images/9mobile.png"></ion-img> -->
+          <!-- <ion-label>9Mobile</ion-label> -->
+        </ion-segment-button>
+      </ion-segment>
+
+      <div [ngSwitch]="type">
+        <ion-list *ngSwitchCase="'mtn'">
+          <form #buyMtnData="ngForm" (ngSubmit)="onSubmit(buyMtnData)">
+            <ion-item lines="none">
+              <ion-label>Data Volume</ion-label>
+              <ion-select
+                mode="ios"
+                name="dataVol"
+                [(ngModel)]="dataVol"
+                (ngModelChange)="getMtnDataPrice($event)"
+              >
+                <!-- <ion-select-option>500mb</ion-select-option> -->
+                <ion-select-option value="1000">1gb</ion-select-option>
+                <ion-select-option value="2000">2gb</ion-select-option>
+                <ion-select-option value="5000">5gb</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item lines="none">
+              <!-- <ion-label position="floating">Amount</ion-label> -->
+              <!-- <ion-input type="number" placeholder="Amount" name="dataAmount" [(ngModel)]="dataAmount" readonly
+                required>
+              </ion-input> -->
+              <ion-label>
+                <p>Amount (Naira)</p>
+                <h3>{{ dataAmount }}</h3>
+                <p style="color: red !important">{{insufficient}}</p>
+              </ion-label>
+            </ion-item>
+            <ion-item lines="none">
+              <!-- <ion-label position="floating">Phone Number</ion-label> -->
+              <ion-input
+                type="number"
+                placeholder="Phone Number"
+                name="phoneNumber"
+                [(ngModel)]="phoneNumber"
+                (ngModelChange)="getPhone($event)"
+                required
+              >
+              </ion-input>
+            </ion-item>
+            <input type="hidden" name="smeType" [(ngModel)]="smeType" />
+            <input type="hidden" name="dataAmount" [(ngModel)]="dataAmount" />
+            <ion-button
+              expand="full"
+              color="primary"
+              type="submit"
+              [disabled]="!buyMtnData.valid || insufficient"
+              >SEND
+            </ion-button>
+          </form>
+        </ion-list>
+
+        <ion-list *ngSwitchCase="'airtel'">
+          <form
+            #buyAirtelData="ngForm"
+            (ngSubmit)="onSubmitAirtel(buyAirtelData)"
+          >
+            <ion-item lines="none">
+              <ion-label>Data Volume</ion-label>
+              <ion-select
+                mode="ios"
+                name="dataVol"
+                [(ngModel)]="dataVol"
+                (ngModelChange)="getAirtelDataPrice($event)"
+              >
+                <ion-select-option value="0">750mb</ion-select-option>
+                <ion-select-option value="7">1.5gb</ion-select-option>
+                <ion-select-option value="6">2gb</ion-select-option>
+                <ion-select-option value="5">3gb</ion-select-option>
+                <ion-select-option value="4">4.5gb</ion-select-option>
+                <ion-select-option value="3">6gb</ion-select-option>
+                <ion-select-option value="2">8gb</ion-select-option>
+                <ion-select-option value="1">11gb</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item lines="none">
+              <!-- <ion-label position="floating">Amount</ion-label> -->
+              <!-- <ion-input type="number" placeholder="Amount" name="dataAmount" [(ngModel)]="dataAmount" readonly
+                required>
+              </ion-input> -->
+              <ion-label>
+                <p>Amount (Naira)</p>
+                <h3>{{ dataAmount }}</h3>
+                <p style="color: red !important">{{insufficient}}</p>
+              </ion-label>
+            </ion-item>
+            <ion-item lines="none">
+              <!-- <ion-label position="floating">Phone Number</ion-label> -->
+              <ion-input
+                type="number"
+                placeholder="Phone Number"
+                name="phoneNumber"
+                [(ngModel)]="phoneNumber"
+                (ngModelChange)="getPhone($event)"
+                required
+              >
+              </ion-input>
+            </ion-item>
+            <input type="hidden" name="volumeType" [(ngModel)]="volumeType" />
+            <input type="hidden" name="dataAmount" [(ngModel)]="dataAmount" />
+
+            <ion-button
+              expand="full"
+              color="primary"
+              type="submit"
+              [disabled]="!buyAirtelData.valid || insufficient"
+              >SEND
+            </ion-button>
+          </form>
+        </ion-list>
+
+        <ion-list *ngSwitchCase="'glo'">
+          <form #buyGloData="ngForm" (ngSubmit)="onSubmitGLo(buyGloData)">
+            <ion-item lines="none">
+              <ion-label>Data Volume</ion-label>
+              <ion-select
+                mode="ios"
+                name="dataVol"
+                [(ngModel)]="dataVol"
+                (ngModelChange)="getGloDataPrice($event)"
+              >
+                <ion-select-option value="57">1.05gb</ion-select-option>
+                <ion-select-option value="53">2.5gb</ion-select-option>
+                <ion-select-option value="16">4.1gb</ion-select-option>
+                <ion-select-option value="55">5.8gb</ion-select-option>
+                <ion-select-option value="58">7.5gb</ion-select-option>
+                <ion-select-option value="54">10gb</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-label>
+                <p>Amount (Naira)</p>
+                <h3>{{ dataAmount }}</h3>
+                <p style="color: red !important">{{insufficient}}</p>
+              </ion-label>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-input
+                type="number"
+                placeholder="Phone Number"
+                name="phoneNumber"
+                [(ngModel)]="phoneNumber"
+                (ngModelChange)="getPhone($event)"
+                required
+              >
+              </ion-input>
+            </ion-item>
+            <input type="hidden" name="dataAmount" [(ngModel)]="dataAmount" />
+
+            <ion-button
+              expand="full"
+              color="primary"
+              type="submit"
+              [disabled]="!buyGloData.valid || insufficient"
+            >
+              SEND
+            </ion-button>
+          </form>
+        </ion-list>
+
+        <ion-list *ngSwitchCase="'9mobile'">
+          <form
+            #buyEtisalatData="ngForm"
+            (ngSubmit)="onSubmitEtisalat(buyEtisalatData)"
+          >
+            <ion-item lines="none">
+              <ion-label>Data Volume</ion-label>
+              <ion-select
+                mode="ios"
+                name="dataVol"
+                [(ngModel)]="dataVol"
+                (ngModelChange)="getEtisalatDataPrice($event)"
+              >
+                <ion-select-option value="12">500mb</ion-select-option>
+                <ion-select-option value="7">1.5gb</ion-select-option>
+                <ion-select-option value="25">2gb</ion-select-option>
+                <ion-select-option value="3">3gb</ion-select-option>
+                <ion-select-option value="8">4.5gb</ion-select-option>
+                <ion-select-option value="36">11gb</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item lines="none">
+              <!-- <ion-label position="floating">Amount</ion-label> -->
+              <!-- <ion-input type="number" placeholder="Amount" name="dataAmount" [(ngModel)]="dataAmount" readonly
+                required>
+              </ion-input> -->
+              <ion-label>
+                <p>Amount (Naira)</p>
+                <h3>{{ dataAmount }}</h3>
+                <p style="color: red !important">{{insufficient}}</p>
+              </ion-label>
+            </ion-item>
+            <ion-item lines="none">
+              <!-- <ion-label position="floating">Phone Number</ion-label> -->
+              <ion-input
+                type="number"
+                placeholder="Phone Number"
+                name="phoneNumber"
+                [(ngModel)]="phoneNumber"
+                (ngModelChange)="getPhone($event)"
+                required
+              >
+              </ion-input>
+            </ion-item>
+            <!-- <input type="hidden" name="volumeType" [(ngModel)]="volumeType"> -->
+            <input type="hidden" name="dataAmount" [(ngModel)]="dataAmount" />
+
+            <ion-button
+              expand="full"
+              color="primary"
+              type="submit"
+              [disabled]="!buyEtisalatData.valid || insufficient"
+            >
+              SEND
+            </ion-button>
+          </form>
+        </ion-list>
+      </div>
+
+      <br />
+    </ion-card-content>
+  </ion-card>
+</ion-content>

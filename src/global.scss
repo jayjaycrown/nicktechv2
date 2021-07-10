@@ -1,0 +1,58 @@
+/*
+ * App Global CSS
+ * ----------------------------------------------------------------------------
+ * Put style rules here that you want to apply globally. These styles are for
+ * the entire app and not just one component. Additionally, this file can be
+ * used as an entry point to import other CSS/Sass files to be included in the
+ * output CSS.
+ * For more information on global stylesheets, visit the documentation:
+ * https://ionicframework.com/docs/layout/global-stylesheets
+ */
+
+/* Core CSS required for Ionic components to work properly */
+@import "~@ionic/angular/css/core.css";
+
+/* Basic CSS for apps built with Ionic */
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/display.css';
+
+/* Optional CSS utils that can be commented out */
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+
+html, body {
+  font-size: 0.9em !important;
+}
+
+a{
+  text-decoration: none !important;
+}
+ion-toolbar{
+  --min-height: 10vh !important;
+  // background: #ffffff !important;
+  // --background: #ffffff !important;
+  padding: 0 10px;
+}
+
+// ion-card{
+//   box-shadow: rgb(0 0 0 / 20%) 0px 1px 1px -2px, rgb(0 0 0 / 14%) 0px 1px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 1px 0px !important;
+// }
+
+ion-tabs{
+  --backgound: var(--ion-background-color) !important;
+  background: var(--ion-background-color) !important;
+}
+
+
+
+ion-segment.data > ion-segment-button.segment-button-checked{
+  border-width: 2px !important;
+  border-style: solid !important;
+  border-color: var(--ion-color-primary) !important;
+}

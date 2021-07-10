@@ -1,0 +1,35 @@
+<ion-header  mode="ios">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="close()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Edit Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">
+       Edit Phone Number
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+        <ion-item lines="none" class="ion-margin-top ion-margin-bottom">
+          <!-- <ion-label position="floating">Phone Number</ion-label> -->
+          <ion-input type="number" placeholder="Phone Number" formControlName="phone"></ion-input>
+        </ion-item>
+        <div *ngIf="(f.phone.dirty || f.phone.touched) && f.phone.errors"
+          class="errors ion-margin-bottom">
+          <span *ngIf="f.phone.errors?.phone">Phone Number is required</span>
+          <span *ngIf="f.phone.errors?.phone">Phone Number is invalid</span>
+        </div>
+        <ion-button type="submit" [disabled]="!updateForm.valid" expand="full" color="primary" class="submit">Update</ion-button>
+        <br>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

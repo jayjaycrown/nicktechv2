@@ -1,0 +1,55 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="close()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Wallet</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">
+        Pay With Monnify
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          <h2>Your Account Number: {{ ACDetails.accountNumber }}</h2>
+
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          <h2>Account Name: {{ ACDetails.accountName }}</h2>
+
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+
+          <h3>Bank Name: {{ ACDetails.bankName }}</h3>
+
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+
+          <h2>Amount to Pay: {{ amount }} Naira </h2>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+
+          <h3>Note: If you can't see the amount to pay, return to the earlier page to input the amount again.</h3>
+        </ion-label>
+      </ion-item>
+      <ion-button expand="full" color="primary" (click)="complete()">I have made the Transfer</ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

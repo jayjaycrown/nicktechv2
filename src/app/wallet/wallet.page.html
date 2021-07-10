@@ -1,0 +1,133 @@
+<ion-header class="ion-no-border" >
+  <ion-toolbar>
+
+    <ion-title>WALLET</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-card>
+    <ion-card-content class="padding">
+      <p>WALLET BALLANCE:</p>
+      <h2 class="ballance">₦ {{walletBalance}}</h2>
+      <div *ngIf="hasACN">
+        <p>Bank Name: {{ ACDetails.bankName }}</p>
+        <P>
+          <span class="ion-float-left">Monnify AC No: {{ ACDetails.accountNumber }} </span>
+          <!-- <span class="ion-float-right">
+            <ion-text color="primary"><a [routerLink]="['/home/wallet']" routerLinkActive="router-link-active">Fund
+                wallet</a></ion-text>
+          </span> -->
+        </P>
+      </div>
+      <div *ngIf="!hasACN">
+        <ion-button expand="full" color="secondary" (click)="createAcNo()">Get Account Number</ion-button>
+      </div>
+      <div class="clear"></div>
+    </ion-card-content>
+  </ion-card>
+
+  <div class="infoDiv">
+    <ion-button fill="clear" (click)="onClick()">
+      <ion-icon name="information-circle" slot="icon-only" size="large"></ion-icon>
+    </ion-button>
+  </div>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">Fund Wallet </ion-card-title>
+      <ion-card-subtitle class="ion-text-center">Fund Via</ion-card-subtitle>
+    </ion-card-header>
+    <ion-segment color="primary" [(ngModel)]="type" (ionChange)="segmentChanged($event)" mode="md" scrollable
+      value="online">
+      <ion-segment-button value="online" checked="true">
+        <ion-label>Online Payment</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="bank">
+        <ion-label>Bank Transfer</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <ion-card-content [ngSwitch]="type" class="ion-padding">
+      <ion-list *ngSwitchCase="'online'">
+        <form [formGroup]="fundWalletForm" (ngSubmit)="onSubmit()">
+          <ion-item-divider>Fill this form below to Fund your wallet</ion-item-divider>
+          <ion-item lines="none" class="ion-margin-top ion-margin-bottom">
+            <ion-input type="number" placeholder="Enter Amount" formControlName="amount"></ion-input>
+          </ion-item>
+          <div *ngIf="(f.amount.dirty || f.amount.touched) && f.amount.errors"
+            class="errors ion-margin-bottom">
+            <span *ngIf="f.amount.errors?.required">Amount is required</span>
+            <span *ngIf="f.amount.errors?.amount">Amount is invalid</span>
+          </div>
+          <ion-button expand="full" color="primary" type="submit" [disabled]="!fundWalletForm.valid">Fund
+          </ion-button>
+        </form>
+      </ion-list>
+      <ion-list *ngSwitchCase="'bank'">
+        <h3>Fund by</h3>
+        <ion-segment color="primary" [(ngModel)]="type2" (ionChange)="segmentChanged2($event)" mode="md" scrollable
+          value="monnify">
+          <ion-segment-button value="monnify" checked="true">
+            <ion-label>Monnify</ion-label>
+          </ion-segment-button>
+          <ion-segment-button value="company">
+            <ion-label>Company Account</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+        <div [ngSwitch]="type2">
+          <ion-list *ngSwitchCase="'monnify'">
+            <form [formGroup]="monifyFundWalletForm" (ngSubmit)="fundWithMoniffy()">
+              <ion-item lines="none" class="ion-margin-top ion-margin-bottom" (change)='getAmount($event.target.value)'>
+                <ion-input type="number" placeholder="Enter Amount" formControlName="Mamount"></ion-input>
+              </ion-item>
+              <div *ngIf="(m.Mamount.dirty || m.Mamount.touched) && m.Mamount.errors" class="errors ion-margin-bottom">
+                <span *ngIf="m.Mamount.errors?.required">Amount is required</span>
+                <span *ngIf="m.Mamount.errors?.Mamount">Amount is invalid</span>
+              </div>
+              <h3> {{amountToPay}} Naira will be Paid by you</h3>
+              <br>
+              <ion-button expand="full" color="primary" type="submit"
+              [disabled]="!monifyFundWalletForm.valid">Pay With Monnify</ion-button>
+            </form>
+          </ion-list>
+          <ion-list *ngSwitchCase="'company'">
+            <ion-item-divider>Please Note</ion-item-divider>
+            <ion-item class="ion-text-wrap">
+              <ion-label class="ion-text-wrap">
+                <h2>Follow the intructions below in order to get your wallet credited manually</h2>
+                <h3> 1. Make equivalent bank transfer of the amount to the bank details below:</h3>
+                <ul>
+                  <li>Account Name: NICKTECH COMMUNICATION</li>
+                  <li>Account Number: 1023130240</li>
+                  <li>Bank name: UBA Bank</li>
+                </ul>
+                <h3>After successful transfer of payment into the account above, Send an SMS to 07068389800 indicating the following:</h3>
+                <ul>
+                  <li>Amount sent</li>
+                  <li>Account name (Name on the account you sent the payment from)</li>
+                  <li>Your full name on our Portal</li>
+                  <li>See example: 2000 naira, Adekunle Ciroma Danfodio, Nicktech (send in this format to 07068389800)
+                  </li>
+                </ul>
+                <h3>Funding of wallet above 80,000 naira requires a one-time BVN verification</h3>
+                <h3>Bank transfer above 10,000 naira requires a stamp duty charge of 50 naira which will be debited from
+                  the
+                  wallet.</h3>
+                <h3>Note: Any transaction below 5000 naira, kindly use Monnify as your payment type.</h3>
+                <h3>Any Payment of 5000 naira above, You are eligible to use any payment option of your choice.</h3>
+                <h3>Use your Nicktech monnify Reserved account to fund your wallet. Your Nicktech wallet gets credited
+                  automatically immediately payment is received and approved.</h3>
+                <h3>Note there is a 54 naira flat fee extra charges for each payment. Minimum funding for Beneficiaries
+                  remains 100 naira and 2000 naira for Resellers.</h3>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

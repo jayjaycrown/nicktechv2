@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button (click)="click()" fill="clear">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Create Ticket</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header class="ion-text-center">
+      <ion-card-title>Create a Support Ticket</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="createTicketForm" (ngSubmit)="onSubmit()">
+        <ion-item class="ion-margin-top ion-margin-bottom" lines="none">
+          <ion-input type="text" placeholder="Message Title" name="msgTitle" formControlName="msgTitle"
+            [ngClass]="{ 'is-invalid': submitted && f.msgTitle.errors }"></ion-input>
+        </ion-item>
+        <div *ngIf="(f.msgTitle.dirty || f.msgTitle.touched) && f.msgTitle.errors" class="errors ion-margin-bottom">
+          <span *ngIf="f.msgTitle.errors?.required">Email is required</span>
+        </div>
+        <ion-item lines="none" class="ion-margin-top ion-margin-bottom">
+          <ion-label>Message Priority</ion-label>
+          <ion-select mode="ios" placeholder="Message Priority" name="msgPriority" formControlName="msgPriority">
+            <ion-select-option value="High">High</ion-select-option>
+            <ion-select-option value="Medium">Medium</ion-select-option>
+            <ion-select-option value="Low">Low</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-textarea placeholder="Message Description" name="msgDescription" maxlength="150"
+            formControlName="msgDescription"></ion-textarea>
+        </ion-item>
+        <ion-button expand="full" color="primary" type="submit">Submit</ion-button>
+      </form>
+      <br>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

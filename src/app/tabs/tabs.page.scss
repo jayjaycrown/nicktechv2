@@ -1,0 +1,38 @@
+
+// ion-tab-bar {
+//   z-index: 999999999 !important;
+//   // border: none !important;
+//   // --border: none !important;
+//   // --background: var(--ion-background-color)
+//   --background: var(--ion-color-primary);
+//   // --background: linear-gradient(to right, #287bb3, #2b79af, #2572a7, #1e6ba0, #176499) !important;
+//   // background-image: linear-gradient(to right, #287bb3, #2b79af, #2572a7, #1e6ba0, #176499) !important;
+
+// }
+
+ion-tab-button.home{
+  --color-selected:  var(--ion-color-tertiary) !important;
+
+}
+
+.selected{
+  transition:.3s all ease-in-out;
+    font-size: 40px !important;
+  }
+ion-tab-bar {
+    padding: 5px !important;
+    margin-top: 10px !important;
+    /* --background: #fff; */
+}
+
+ion-tabs{
+  --backgound: var(--ion-background-color, #fff) !important;
+  background: var(--ion-background-color, #fff) !important;
+}
+
+// ion-tabs{
+//   --background
+// }
+
+
+

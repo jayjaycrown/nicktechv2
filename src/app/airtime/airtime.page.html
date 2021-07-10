@@ -1,0 +1,258 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>PURCHASE AIRTIME</ion-title>
+    <!-- <ion-buttons slot="end">
+      <ion-button fill="clear" [routerLink]="['/home/profile']" routerLinkActive="router-link-active">
+        <ion-icon name="person-circle-outline" slot="icon-only"
+          style="width: 36px !important; height: 36px !important;"></ion-icon>
+      </ion-button>
+    </ion-buttons> -->
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <br />
+  <ion-card>
+    <ion-card-header class="ion-text-center">
+      <ion-card-title> Fill the form below to purchase airtime </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <!-- <ion-item lines="full">
+        <ion-label>Network Type</ion-label>
+        <ion-select mode="ios" name="network" [(ngModel)]="network" (ngModelChange)='networkType($event)'>
+          <ion-select-option value="MTN">MTN</ion-select-option>
+          <ion-select-option value="GLO">GLO</ion-select-option>
+          <ion-select-option value="ETISALAT">ETISALAT</ion-select-option>
+          <ion-select-option value="AIRTEL">AIRTEL</ion-select-option>
+        </ion-select>
+      </ion-item> -->
+
+      <ion-segment
+        class="data"
+        color="primary"
+        [(ngModel)]="networkSelect"
+        (ionChange)="segmentChanged($event)"
+        mode="md"
+        value="mtn"
+      >
+        <ion-segment-button value="mtn" checked="true" class="mtn">
+          <!-- <ion-img class="logoimg" src="assets/images/mtn.png"></ion-img> -->
+        </ion-segment-button>
+        <ion-segment-button value="airtel" class="airtel">
+          <!-- <ion-img class="logoimg" src="assets/images/airtel2.png"></ion-img> -->
+          <!-- <ion-label>Airtel</ion-label> -->
+        </ion-segment-button>
+        <ion-segment-button value="glo" class="glo">
+          <!-- <ion-img class="logoimg" src="assets/images/glo.png"></ion-img> -->
+          <!-- <ion-label>Airtel</ion-label> -->
+        </ion-segment-button>
+        <ion-segment-button value="9mobile" class="mobile">
+          <!-- <ion-img class="logoimg" src="assets/images/9mobile.png"></ion-img> -->
+          <!-- <ion-label>9Mobile</ion-label> -->
+        </ion-segment-button>
+      </ion-segment>
+
+      <div [ngSwitch]="networkSelect">
+        <ion-list *ngSwitchCase="'mtn'">
+          <form #buyMtnAirtime="ngForm" (ngSubmit)="onSubmit(buyMtnAirtime)">
+            <ion-list lines="none">
+              <ion-item lines="none">
+                <ion-label>Airtime Type</ion-label>
+                <ion-select
+                  mode="ios"
+                  name="airtimeType"
+                  ngModel
+                  (ngModelChange)="getType($event)"
+                  required
+                >
+                  <ion-select-option value="VTU">VTU</ion-select-option>
+                  <ion-select-option value="shareandsell"
+                    >Share And Sell</ion-select-option
+                  >
+                </ion-select>
+              </ion-item>
+              <ion-item lines="none">
+                <!-- <ion-label position="floating">Amount</ion-label> -->
+                <ion-input
+                  type="number"
+                  name="airtimeAmount"
+                  placeholder="Amount"
+                  ngModel
+                  (ngModelChange)="getAmount($event)"
+                >
+                </ion-input>
+              </ion-item>
+
+              <p style="font-weight: bold; text-align: center">
+                ₦{{ view }} will be deducted from your account
+              </p>
+              <div style="display: block; text-align: center">
+                <span style="color: red !important"> {{insufficient}} </span>
+              </div>
+              <br />
+              <ion-item lines="none">
+                <ion-input
+                  type="text"
+                  name="phoneNumber"
+                  placeholder="Phone Number"
+                  ngModel
+                  required
+                ></ion-input>
+              </ion-item>
+              <input type="hidden" [(ngModel)]="view" name="view" />
+            </ion-list>
+            <ion-button
+              expand="full"
+              color="primary"
+              type="submit"
+              [disabled]="!buyMtnAirtime.valid || insufficient|| amountLow "
+              >SEND
+            </ion-button>
+          </form>
+        </ion-list>
+
+        <ion-list *ngSwitchCase="'airtel'">
+          <form
+            #buyAirtelAirtime="ngForm"
+            (ngSubmit)="onAirtelSubmit(buyAirtelAirtime)"
+          >
+            <ion-list lines="none">
+              <ion-item lines="none">
+                <!-- <ion-label position="floating">Amount</ion-label> -->
+                <ion-input
+                  type="number"
+                  name="airtimeAmount"
+                  placeholder="Amount"
+                  ngModel
+                  (ngModelChange)="getAmountAirtel($event)"
+                >
+                </ion-input>
+              </ion-item>
+
+              <p style="font-weight: bold; text-align: center">
+                ₦{{ view }} will be deducted from your account
+              </p>
+              <div style="display: block; text-align: center">
+                <span style="color: red !important"> {{insufficient}} </span>
+              </div>
+              <br />
+              <ion-item lines="none">
+                <ion-input
+                  type="text"
+                  name="phoneNumber"
+                  placeholder="Phone Number"
+                  ngModel
+                  required
+                ></ion-input>
+              </ion-item>
+              <input type="hidden" [(ngModel)]="view" name="view" />
+            </ion-list>
+            <ion-button
+              expand="full"
+              color="primary"
+              type="submit"
+              [disabled]="!buyAirtelAirtime.valid || insufficient|| amountLow"
+            >
+              SEND
+            </ion-button>
+          </form>
+        </ion-list>
+
+        <ion-list *ngSwitchCase="'glo'">
+          <form #buyGloAirtime="ngForm" (ngSubmit)="onGloSubmit(buyGloAirtime)">
+            <ion-list lines="none">
+              <ion-item lines="none">
+                <!-- <ion-label position="floating">Amount</ion-label> -->
+                <ion-input
+                  type="number"
+                  name="airtimeAmount"
+                  placeholder="Amount"
+                  ngModel
+                  (ngModelChange)="getAmountGLo($event)"
+                >
+                </ion-input>
+              </ion-item>
+
+              <p style="font-weight: bold; text-align: center">
+                ₦{{ view }} will be deducted from your account
+              </p>
+              <div style="display: block; text-align: center">
+                <span style="color: red !important"> {{insufficient}} </span>
+              </div>
+              <br />
+              <ion-item lines="none">
+                <ion-input
+                  type="text"
+                  name="phoneNumber"
+                  placeholder="Phone Number"
+                  ngModel
+                  required
+                ></ion-input>
+              </ion-item>
+              <input type="hidden" [(ngModel)]="view" name="view" />
+            </ion-list>
+            <ion-button
+              expand="full"
+              color="primary"
+              type="submit"
+              [disabled]="!buyGloAirtime.valid || insufficient || amountLow"
+              >SEND
+            </ion-button>
+          </form>
+        </ion-list>
+
+        <ion-list *ngSwitchCase="'9mobile'">
+          <form
+            #buyEtiAirtime="ngForm"
+            (ngSubmit)="onEtisalatSubmit(buyEtiAirtime)"
+          >
+            <ion-list lines="none">
+              <ion-item lines="none">
+                <!-- <ion-label position="floating">Amount</ion-label> -->
+                <ion-input
+                  type="number"
+                  name="airtimeAmount"
+                  placeholder="Amount"
+                  ngModel
+                  (ngModelChange)="getAmountEtisalat($event)"
+                >
+                </ion-input>
+              </ion-item>
+
+              <p style="font-weight: bold; text-align: center">
+                ₦{{ view }} will be deducted from your account
+              </p>
+              <div style="display: block; text-align: center">
+                <span style="color: red !important"> {{insufficient}} </span>
+              </div>
+              <br />
+              <ion-item lines="none">
+                <ion-input
+                  type="text"
+                  name="phoneNumber"
+                  placeholder="Phone Number"
+                  ngModel
+                  required
+                ></ion-input>
+              </ion-item>
+              <input type="hidden" [(ngModel)]="view" name="view" />
+            </ion-list>
+            <ion-button
+              expand="full"
+              color="primary"
+              type="submit"
+              [disabled]="!buyEtiAirtime.valid || insufficient || amountLow"
+            >
+              SEND
+            </ion-button>
+          </form>
+        </ion-list>
+      </div>
+
+      <br />
+    </ion-card-content>
+  </ion-card>
+</ion-content>

@@ -1,0 +1,78 @@
+<ion-header class="ion-no-border" mode="md">
+  <ion-toolbar>
+    <ion-title *ngIf="userData.fullName != ''">Hello {{ userData.fullName }}</ion-title>
+    <ion-buttons slot="end">
+      <button (click)="gotoHelp()">
+        Need Help?
+      </button>
+      <!-- <ion-button (click)="gotoHelp()" color="primary">
+        Need Help?
+        <ion-icon slot="" name="help" size="large" color="primary" class="headerIcon"></ion-icon>
+      </ion-button> -->
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-content class="padding">
+      <p>WALLET BALLANCE:</p>
+      <h2 class="ballance">₦ {{walletBalance}}</h2>
+      <div *ngIf="hasACN">
+        <p>Bank Name: {{ ACDetails.bankName }}</p>
+        <P>
+          <span class="ion-float-left">Acount Number: {{ ACDetails.accountNumber }} </span>
+          <span class="ion-float-right">
+            <button [routerLink]="['/home/wallet']" routerLinkActive="router-link-active">
+              Fund wallet
+            </button>
+          </span>
+        </P>
+      </div>
+      <div *ngIf="!hasACN">
+        <ion-button expand="full" color="secondary" (click)="createAcNo()">Get Account Number</ion-button>
+      </div>
+      <div class="clear"></div>
+    </ion-card-content>
+  </ion-card>
+<br><br>
+  <ion-grid>
+    <ion-row >
+      <ion-col size="6">
+        <ion-card class="mycard" (click)="buyAirtime()">
+          <ion-card-content class="dashboardcard ">
+            <ion-icon name="phone-portrait" color="secondary" class="testing"></ion-icon>
+            <h2 class="cardtitle">Buy Airtime</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card class="mycard" (click)="buyData()">
+          <ion-card-content class="dashboardcard ">
+            <ion-icon name="card" class="testing" color="primary"></ion-icon>
+            <h2 class="cardtitle">Buy Data</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col size="6">
+        <ion-card class="mycard" (click)="convert()">
+          <ion-card-content class="dashboardcard ">
+            <ion-icon name="cash" color="tertiary" class="testing"></ion-icon>
+            <h2 class="cardtitle ion-text-nowrap">Airtime2Cash</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6">
+        <ion-card class="mycard" (click)="transactions()">
+          <ion-card-content class="dashboardcard ">
+            <ion-icon name="stats-chart" class="testing" color="warning"></ion-icon>
+            <h2 class="cardtitle">Transactions</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

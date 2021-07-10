@@ -1,0 +1,11 @@
+ion-item, ion-list {
+    --background: var(--ion-color-light);
+    margin-bottom: 0px !important;
+}
+.list-md {
+    padding-top: 0px !important;
+    padding-bottom: 0px!important;
+}
+ion-item:last-child{
+  margin-bottom: 0 !important;
+}

@@ -1,0 +1,41 @@
+<ion-content>
+
+  <div class="logo">
+    <ion-img src="assets/images/logo.png"></ion-img>
+  </div>
+
+  <div class="logotext">
+    <h3>Login</h3>
+  </div>
+  <br><br>
+  <div class="formdetails">
+    <form [formGroup]="forgotForm" (ngSubmit)="onSubmit()">
+      <ion-item lines="none" class="ion-margin-top ion-margin-bottom">
+        <!-- <ion-label position="floating">Email Address</ion-label> -->
+        <ion-input type="text" placeholder="Email Address" name="email" formControlName="email"
+          [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+        </ion-input>
+      </ion-item>
+      <div *ngIf="(f.email.dirty || f.email.touched) && f.email.errors" class="errors ion-margin-bottom">
+        <span *ngIf="f.email.errors?.required">Email is required</span>
+        <span *ngIf="f.email.errors?.email">Email is invalid</span>
+      </div>
+
+      <ion-button expand="full" type="submit" [disabled]="!forgotForm.valid">Request Link</ion-button>
+    </form>
+
+    <!-- <ion-button expand="full" size="large">LOGIN</ion-button> -->
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <p class="ion-text-left primary"> <a [routerLink]="['/auth']">Back to Log In?</a> </p>
+        </ion-col>
+        <ion-col>
+          <p class="ion-text-right primary"><a [routerLink]="['/auth/register']">Register</a></p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+</ion-content>

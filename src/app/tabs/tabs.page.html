@@ -1,0 +1,30 @@
+<ion-tabs #tabs (ionTabsDidChange)="setCurrentTab()">
+
+  <ion-tab-bar slot="bottom"  style="border-top-width: 0px;">
+    <ion-tab-button tab="refer">
+      <ion-icon name="person-add"></ion-icon>
+      <ion-label>Referral</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="wallet">
+      <ion-icon name="wallet"></ion-icon>
+      <ion-label>Wallet</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="dashboard" class="home">
+      <ion-icon name="home" [class.selected]="!showLabel"></ion-icon>
+      <ion-label *ngIf="showLabel">Home</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="ticket">
+      <ion-icon name="ticket"></ion-icon>
+      <ion-label>Ticket</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="profile">
+      <ion-icon name="person-circle"></ion-icon>
+      <ion-label>Me</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+
+</ion-tabs>

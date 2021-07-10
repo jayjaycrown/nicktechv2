@@ -1,0 +1,101 @@
+<ion-header class="ion-no-border" >
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-menu-button menu="rayo" autoHide="false"></ion-menu-button>
+      <ion-button fill="clear" (click)="toggle()">
+        <ion-icon slot="icon-only" name="menu"></ion-icon>
+      </ion-button>
+      <ion-back-button defaultHref="/home/dashboard"></ion-back-button>
+    </ion-buttons> -->
+    <ion-title>PROFILE</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()" fill="clear">
+        <ion-icon slot="" name="log-out-outline" size="large" color="primary" class="headerIcon"></ion-icon>
+      </ion-button>
+    </ion-buttons >
+  </ion-toolbar>
+</ion-header>
+
+<!-- accountType: "Beneficiary"
+bvnVerify: "No"
+created_dt: "2021-06-05T22:50:50.973Z"
+email: "jayjaycrown@gmail.com"
+fullName: "Jonathan Crown"
+password: "$2a$15$BB3I3rZARJGyPDQHMDRld.Mzuv8J/i1O2EsPp2Uw7yQGRfTWhAls."
+phoneNumber: "8071418922"
+referredBy: "Admin"
+whatsappPhoneNumber: "8071418922"
+__v: 0
+_id: "60bbffca2be694001701abaf" -->
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-item>
+      <ion-icon slot="start" name="moon"></ion-icon>
+      <ion-label>
+        Switch to {{ mode }} Mode
+      </ion-label>
+      <ion-toggle mode="ios" [checked]="status" color="primary" [(ngModel)]="status"
+        (ngModelChange)="changeStatus(status)">
+      </ion-toggle>
+    </ion-item>
+  </ion-card>
+  <ion-card>
+    <ion-card-header>
+      <ion-card-subtitle class="ion-text-center">Member since: <b>{{users.created_dt | date: 'medium' }}</b>
+      </ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item lines="none">
+          <ion-icon slot="start" name="person"></ion-icon>
+          <ion-label>
+            <p>Name</p>
+            <h3> {{ users.fullName }} </h3>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon slot="start" name="mail"></ion-icon>
+          <ion-label>
+            <p>Email</p>
+            <h3> {{ users.email }} </h3>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon slot="start" name="call"></ion-icon>
+          <ion-label>
+            <p>Phone Number</p>
+            <h3>{{ users.phoneNumber }}</h3>
+          </ion-label>
+          <ion-button slot="end" expand="full" fill="clear" color="secondary" (click)="editPhone()">
+            <ion-icon slot="icon-only" size="large" name="create"></ion-icon>
+          </ion-button>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon slot="start" name="construct"></ion-icon>
+          <ion-label>
+            <p>Account Type</p>
+            <h3> {{ users.accountType }} </h3>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none">
+          <ion-icon slot="start" name="cash"></ion-icon>
+          <ion-label>
+            <p>BVN Verified</p>
+            <h3 *ngIf="bvnVerify">
+              <ion-button expand="full" color="primary" (click)="verifyBVN()">Verify BVN</ion-button>
+            </h3>
+            <h3 *ngIf="!bvnVerify">Verified</h3>
+          </ion-label>
+        </ion-item>
+        <!-- <ion-item>
+          <ion-label>Switch to {{ mode }} mode</ion-label>
+          <ion-toggle mode="ios" [checked]="status" color="primary" [(ngModel)]="status"
+            (ngModelChange)="changeStatus(status)">
+          </ion-toggle>
+        </ion-item> -->
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+
+</ion-content>

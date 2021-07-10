@@ -1,0 +1,68 @@
+<ion-header class="ion-no-border" >
+  <ion-toolbar>
+    <!-- <ion-buttons slot="start">
+      <ion-menu-button menu="rayo" autoHide="false"></ion-menu-button>
+    </ion-buttons> -->
+    <ion-title>REFERRAL</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-content>
+      <div *ngIf="!isRefAvailable">
+        <ion-item>
+          <ion-label position="floating">
+            <h3>Referral Link:</h3>
+          </ion-label>
+          <ion-input [value]="refDetails.referralLink" disabled></ion-input>
+        </ion-item>
+        <ion-button expand="block" (click)="copyReferral(refDetails.referralLink)">Copy Link</ion-button>
+      </div>
+
+      <div *ngIf="isRefAvailable">
+        <ion-item>
+          <ion-label position="floating">
+            <h3>Referral Link:</h3>
+          </ion-label>
+          <ion-input value="No link generated yet"></ion-input>
+        </ion-item>
+        <ion-button expand="block" (click)="createLink()">Generate Link</ion-button>
+      </div>
+
+
+    </ion-card-content>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-item lines="none">
+        <ion-label>
+          <h3>Referral Ballance:</h3>
+          <h1>₦ {{refDetails.walletBalance}}</h1>
+        </ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">My Downliners</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let downliner of downliners">
+          <ion-label>
+            <h2> {{ downliner.fullName }} </h2>
+            <p>{{ downliner.email }}</p>
+            <p>{{ downliner.phoneNumber }}</p>
+            <p>{{ downliner.whatsappPhoneNumber }}</p>
+            <p>{{ downliner.accountType }}</p>
+            <p>{{ downliner.created_dt | date : 'medium' }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

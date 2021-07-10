@@ -1,0 +1,35 @@
+<ion-header >
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" (click)="close()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Verify BVN</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title class="ion-text-center">
+        BVN Verification
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="verifyForm" (ngSubmit)="onSubmit()">
+        <ion-item lines="none" class="ion-margin-top ion-margin-bottom">
+          <!-- <ion-label position="floating">Phone Number</ion-label> -->
+          <ion-input type="number" placeholder="Enter your BVN" formControlName="bvn"></ion-input>
+        </ion-item>
+        <div *ngIf="(f.bvn.dirty || f.bvn.touched) && f.bvn.errors" class="errors ion-margin-bottom">
+          <span *ngIf="f.bvn.errors?.required">Phone Number is required</span>
+          <span *ngIf="f.bvn.errors?.bvn">Phone Number is invalid</span>
+        </div>
+        <ion-button type="submit" [disabled]="!verifyForm.valid" expand="full" color="primary" class="submit">Verify
+        </ion-button>
+        <br>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

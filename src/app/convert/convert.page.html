@@ -1,0 +1,89 @@
+<ion-header class="ion-no-border" >
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>AIRTIME2CASH</ion-title>
+
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+  <div class="infoDiv">
+    <ion-button fill="clear" (click)="onClick()">
+      <ion-icon name="information-circle" slot="icon-only" size="large"></ion-icon>
+    </ion-button>
+  </div>
+  <ion-card>
+    <ion-card-header class="ion-text-center">
+      <ion-card-title>
+        Fill this form below to process conversion of airtime
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Receiving Mode</ion-label>
+        <ion-select mode="ios" name="mode" ngModel (ngModelChange)="selectMode($event)">
+          <ion-select-option value="wallet">Wallet</ion-select-option>
+          <ion-select-option value="Bank">Bank</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <form #convertForm="ngForm" (ngSubmit)="onSubmit(convertForm)">
+        <ion-list lines="none">
+          <ion-item lines="none">
+            <ion-label>Network Type</ion-label>
+            <ion-select mode="ios" name='networkType' ngModel (ngModelChange)="getNumber($event)" required>
+              <ion-select-option value="MTN">MTN</ion-select-option>
+              <ion-select-option value="GLO">GLO</ion-select-option>
+              <ion-select-option value="9MOBILE">9MOBILE</ion-select-option>
+              <ion-select-option value="AIRTEL">AIRTEL</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <h2 style="margin-left:20px;">Send the Airtime to: <span style="font-weight: bold;">{{ number }}</span> </h2>
+          <br>
+          <ion-item lines="none">
+            <!-- <ion-label position="floating">Phone Number</ion-label> -->
+            <ion-input type="tel" placeholder="Phone Number" name="senderPhoneNumber" ngModel required></ion-input>
+          </ion-item>
+          <ion-item lines="none">
+            <!-- <ion-label position="floating">Amount</ion-label> -->
+            <ion-input type="number" placeholder="Airtime Amount" name="airtimeAmount" ngModel required
+              (ngModelChange)="getAmount($event)"></ion-input>
+          </ion-item>
+
+          <ion-item lines="none">
+
+            <ion-label>
+              <p>Amount you'll receive</p>
+              <h2> {{ amountToReceive }} </h2>
+              <!-- <p> {{ insufficient }} </p> -->
+            </ion-label>
+            <!-- <ion-label position="floating">Amount</ion-label> -->
+            <!-- <ion-input type="number" placeholder="Amount You'll Receive" name="amountToReceive"
+              [(ngModel)]="amountToReceive" readonly></ion-input>-->
+          </ion-item>
+          <input type="hidden" name="receivingMode" [(ngModel)]="receivingMode">
+          <input type="hidden" name="amountToReceive" [(ngModel)]="amountToReceive">
+
+          <div *ngIf="bank">
+            <ion-item lines="none">
+              <ion-input type="number" name="accountNumber" ngModel placeholder="Account Number"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-input type="text" name="accountName" ngModel placeholder="Account Name"></ion-input>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-input type="text" name="bankName" ngModel placeholder="Bank Name"></ion-input>
+            </ion-item>
+          </div>
+          <ion-button expand="full" color="primary" type="submit" [disabled]="!convertForm.valid">
+            Submit</ion-button>
+        </ion-list>
+
+      </form>
+      <br>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

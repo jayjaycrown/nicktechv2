@@ -1,0 +1,58 @@
+<ion-content>
+
+  <div class="logo">
+    <ion-img src="assets/images/background.jpeg"></ion-img>
+    <!-- <div class="text">
+      <h1>Sign In.</h1>
+      <p>Instant recharge of airtime, databundle and much more..</p>
+    </div> -->
+  </div>
+
+<br>
+  <div class="logotext">
+    <h3 >Login</h3>
+  </div>
+  <br><br>
+  <div class="formdetails">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <ion-item lines="none" class="ion-margin-top ion-margin-bottom">
+        <!-- <ion-label position="floating">Email Address</ion-label> -->
+        <ion-input type="text" placeholder="Email Address" name="email" formControlName="email"
+          [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+        </ion-input>
+      </ion-item>
+      <div *ngIf="(f.email.dirty || f.email.touched) && f.email.errors" class="errors ion-margin-bottom">
+        <span *ngIf="f.email.errors?.required">Email is required</span>
+        <span *ngIf="f.email.errors?.email">Email is invalid</span>
+      </div>
+
+      <ion-item lines="none" class="ion-margin-top ion-margin-bottom">
+        <!-- <ion-label position="floating">Password</ion-label> -->
+        <ion-input type="{{showPass ? 'text' : 'password'}}" placeholder="Password" formControlName="password"
+          [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+        </ion-input>
+        <ion-icon size="large" style="margin-top: 10px;" item-end slot="end" name="{{showPass ? 'eye' : 'eye-off'}}"
+          (click)="showPass=!showPass"></ion-icon>
+      </ion-item>
+      <div *ngIf="(f.password.dirty || f.password.touched) && f.password.errors" class="errors ion-margin-bottom">
+        <span *ngIf="f.password.errors?.required">Password is required</span>
+        <span *ngIf="f.password.errors?.minlength">Password needs to be 6 characters</span>
+      </div>
+      <ion-button expand="full" type="submit" [disabled]="!loginForm.valid">Login</ion-button>
+    </form>
+
+    <!-- <ion-button expand="full" size="large">LOGIN</ion-button> -->
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <p class="ion-text-left primary"> <a [routerLink]="['/auth/forgot']">Forgot Password?</a> </p>
+        </ion-col>
+        <ion-col>
+          <p class="ion-text-right primary"><a [routerLink]="['/auth/register']">Register</a></p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+</ion-content>
